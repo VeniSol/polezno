@@ -1,0 +1,156 @@
+/* Основные стили */
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "PT Sans", sans-serif;
+    background-color: #f4f4f4;
+}
+
+.account-section {
+    display: flex;
+    justify-content: space-around;
+    padding: 50px 20px;
+}
+
+h1, h2 {
+    color: #3d3d3d;
+    text-align: center;
+}
+
+/* Стили для личной информации */
+.account-info {
+    width: 40%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.user-details {
+    text-align: left;
+}
+
+.user-details p {
+    font-size: 16px;
+    color: #333;
+    margin: 10px 0;
+}
+
+.edit-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #6ea93e;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-btn:hover {
+    background-color: #557d2f;
+}
+
+/* Стили для истории заказов */
+.order-history {
+    width: 50%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+#order-list {
+    list-style: none;
+    padding: 0;
+}
+
+#order-list li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 15px;
+    background-color: #fbf9f6;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.details-btn {
+    padding: 8px 15px;
+    background-color: #6ea93e;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.details-btn:hover {
+    background-color: #557d2f;
+}
+
+/* Стили для шапки */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: #6ea93e;
+    color: #fff;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.header-btn {
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #6ea93e;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.header-btn:hover {
+    background-color: #557d2f;
+    color: #fff;
+}
+
+/* Адаптивность */
+@media (max-width: 850px) {
+    .account-section {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .account-info, .order-history {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    #order-list li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

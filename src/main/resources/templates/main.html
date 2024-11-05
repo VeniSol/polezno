@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Полезный бум</title>
+    <link rel="shortcut icon" href="/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <h1 class="logo">Полезный бум</h1>
+        <ul class="nav-links">
+            <li class="activel"><a href="#home">Home</a></li>
+            <li><a href="#products">Продукция</a></li>
+            <li><a href="#about">О нас</a></li>
+            <li class="ctn" id="form-open"><a href="#">Вход/регистрация</a></li>
+        </ul>
+        <img src="/images/menu-btn.png" alt="" class="menu-btn">
+    </nav>
+
+    <header class="header" id="home">
+        <div class="header-content">
+            <h2>Польза в каждом укусе!</h2>
+            <div class="line"></div>
+            <h1>Магазин полезного питания</h1>
+            <a href="#products" class="ctn">Узнать больше</a>
+        </div>
+    </header>
+
+    <section class="home" id="form-container">
+        <div class="form_container">
+            <i class="uil uil-times form_close"></i>
+            <!-- Login From -->
+            <div class="form login_form">
+                <form action="/login" method="post" th:object="${user}">
+                    <h2>Вход</h2>
+                    <p style="color:red;text-align: center;margin-top:20px " id="err"></p>
+                    <div class="input_box">
+                        <input id="log1" type="text" placeholder="Введите ваш логин" th:field="*{login}" required>
+                        <i class="uil uil-envelope-alt email"></i>
+                    </div>
+                    <div class="input_box">
+                        <input id="pas1" type="password" placeholder="Введите ваш пароль" th:field="*{password}"
+                            required>
+                        <i class="uil uil-lock password"></i>
+                        <i class="uil uil-eye-slash pw_hide"></i>
+                    </div>
+                    <button class="button">Войти</button>
+                    <div class="login_signup">
+                        У вас нет учетной записи? <a href="#" id="signup">Зарегистрироваться</a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Signup From -->
+            <div class="form signup_form">
+                <form action="/signup" method="post" th:object="${user}">
+                    <h2>Регистрация</h2>
+                    <p style="color:red;text-align: center" id="err2"></p>
+                    <div class="input_box">
+                        <input id="name" type="text" placeholder="Введите ваше имя" th:field="*{name}" required>
+                        <i class="uil uil-envelope-alt email"></i>
+                    </div>
+                    <div class="input_box">
+                        <input id="log2" type="text" placeholder="Введите ваш логин" th:field="*{login}" required>
+                        <i class="uil uil-envelope-alt email"></i>
+                    </div>
+                    <div class="input_box">
+                        <input id="pas2" type="password" placeholder="Придумайте пароль" th:field="*{password}"
+                            required>
+                        <i class="uil uil-lock password"></i>
+                        <i class="uil uil-eye-slash pw_hide"></i>
+                    </div>
+                    <div class="input_box">
+                        <input id="pas2copy" type="password" placeholder="Повторите пароль пароль"
+                               required>
+                        <i class="uil uil-lock password"></i>
+                        <i class="uil uil-eye-slash pw_hide"></i>
+                    </div>
+                    <button class="button">Зарегистрироваться</button>
+                    <div class="login_signup">
+                        Уже есть учетная запись? <a href="#" id="login">Вход</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="events" id="products">
+        <div class="title">
+            <h1>Пример нашей продукции</h1>
+            <div class="line"></div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <img src="/images/bar.png" alt="Батончики">
+                <h4>Злаковые батончики</h4>
+                <p>Натуральные злаковые батончики с добавлением сухофруктов и орехов. Идеальный перекус для поддержания
+                    энергии на протяжении дня.</p>
+                <a href="/order" class="ctn">Заказ товара</a>
+            </div>
+            <div class="col">
+                <img src="/images/tea.png" alt="Чай">
+                <h4>Травяной чай</h4>
+                <p>Успокаивающие и восстанавливающие смеси травяного чая, приготовленные по традиционным рецептам для
+                    вашего здоровья и хорошего самочувствия.</p>
+                <a href="/order" class="ctn">Заказ товара</a>
+            </div>
+            <div class="col">
+                <img src="/images/nuts.png" alt="Орехи">
+                <h4>Ореховые миксы</h4>
+                <p>Полезные ореховые смеси для здорового перекуса. Включают миндаль, фундук, кешью и другие орехи для
+                    сбалансированного питания.</p>
+                <a href="/order" class="ctn">Заказ товара</a>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="explore" id="about">
+        <div class="explore-content">
+            <h1>О нас</h1>
+            <div class="line"></div>
+            <p>ОАО «Зеленый уголок» — это не просто магазин, а место, где здоровье, качество и вкус идут рука об руку.
+                Мы с гордостью предлагаем продукцию, изготовленную исключительно из натуральных ингредиентов, без
+                использования искусственных добавок, консервантов и усилителей вкуса. Наша главная миссия — поддерживать
+                ваше здоровье и благополучие, предлагая вам только самые свежие и натуральные продукты.</p>
+            <p>Мы верим, что здоровое питание — это основа активного, продуктивного и полноценного образа жизни. Мы
+                стремимся сделать полезные продукты доступными для каждого, помогая вам заботиться о здоровье на всех
+                этапах — от завтрака до ужина.</p>
+            <p>Мы поддерживаем экологически чистое производство и тесно сотрудничаем с местными фермерскими хозяйствами.
+                Наша продукция проходит строгий контроль качества, чтобы вы всегда могли быть уверены в том, что
+                покупаете лучшее.</p>
+            <p><strong>Время работы:</strong></p>
+            <p>Понедельник — Пятница: 9:00 — 20:00</p>
+            <p>Суббота: 10:00 — 18:00</p>
+            <p>Воскресенье: выходной</p>
+            <p>Мы ценим каждого клиента и постоянно работаем над тем, чтобы ваше посещение нашего магазина было приятным
+                и удобным. Благодарим вас за доверие и выбор натуральных продуктов вместе с нами!</p>
+        </div>
+
+    </section>
+    <script th:src="@{/js/script.js}"></script>
+    <script type="text/javascript" th:src="@{/js/validator.js}"></script>
+</body>
+
+</html>

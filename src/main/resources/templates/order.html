@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заказ продукции</title>
+    <link rel="shortcut icon" href="/images/logo.png" type="image/png">
+
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+</head>
+<body>
+<!-- Шапка с логотипом и кнопками -->
+<header class="header">
+    <div class="logo">
+        <img src="/images/logo.png" alt="Логотип" class="logo-img">
+        <span class="logo-text">Полезный бум</span>
+    </div>
+    <div class="header-buttons">
+        <button class="header-btn" onclick="window.location.href='/account'">Личный кабинет</button>
+        <button class="header-btn" onclick="window.location.href='/logout'">Выход</button>
+    </div>
+</header>
+
+<section class="order-section">
+    <div class="order-container">
+        <h1>Заказ продукции</h1>
+        <div class="product-list" id="product-list">
+        </div>
+    </div>
+
+    <div class="cart">
+        <h2>Ваша корзина</h2>
+        <ul id="cart-items">
+
+        </ul>
+        <div class="total-price">
+            Итого: <span id="total">0₽</span>
+        </div>
+        <button class="checkout-btn">Оформить заказ</button>
+    </div>
+</section>
+<script th:inline="javascript">
+    let products = [[${products}]];
+    let html = "";
+    for (let i = 0; i < products.length; i++) {
+        html += `<div class="product-card">
+            <img src="/images/${products[i]["image"]}" alt="${products[i]["nameProd"]}">
+            <h3>${products[i]["nameProd"]}</h3>
+            <div id="bread${i}Price" class="price">${products[i]["priceProd"]} Br</div>
+            <input id="${products[i]["id"]}Value" type="number" value="1" min="1" class="quantity-input" data-id="${products[i]["id"]}">
+            <button class="add-to-cart-btn" data-id="${products[i]["id"]}" onclick="addToCart('${products[i]["id"]}', '${products[i]["priceProd"]}', document.getElementById('${products[i]["id"]}Value').value,'${products[i]["nameProd"]}')">Добавить в корзину</button>
+        </div>`;
+    }
+    document.querySelector(".product-list").innerHTML = html;
+
+    let itemsHtml = "";
+    let totalSum=0;
+    function addToCart(id, price, quantity,name) {
+        itemsHtml += `<li>${name}:  ${price} * ${quantity} = ${price * quantity}Br</li>`;
+        document.getElementById("cart-items").innerHTML = itemsHtml;
+        totalSum+=price * quantity;
+        document.getElementById("total").innerHTML = totalSum;
+    }
+</script>
+
+<link rel="stylesheet" href="/css/orderStyle.css">
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+CREATE DATABASE polezno;
+USE polezno;
+CREATE TABLE users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    login VARCHAR(50) NOT NULL,
+    user_name VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(50) NOT NULL
+);
+CREATE TABLE products (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name_prod VARCHAR(100) NOT NULL,
+    price_prod DECIMAL(10, 2) NOT NULL,
+    quantity_prod INT NOT NULL
+);
+CREATE TABLE orders (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user INT NOT NULL,
+    product INT NOT NULL,
+    quantity INT NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    deliverer VARCHAR(100),
+    FOREIGN KEY (user) REFERENCES users(id),
+    FOREIGN KEY (product) REFERENCES products(id)
+);
