@@ -23,11 +23,59 @@
 
     <section class="account-section">
         <div class="account-info">
-            <h1>Личный кабинет</h1>
-            <div class="user-details">
-                <h2>Ваши данные</h2>
-                <p>Логин Иван Иванов</p>
+            <h1 id="panelNameProfile">Личный кабинет</h1>
+        <form id="userInfoForm" action="/saveUserInfo" method="post" th:object="${user}">
+            <div class="form-group">
+                <label for="login">Логин:</label>
+                <input type="text" id="login" name="login" th:field="*{login}">
             </div>
+            <div class="form-group">
+                <label for="firstName">Имя:</label>
+                <input type="text" id="firstName" name="firstName" th:field="*{name}">
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">Фамилия:</label>
+                <input type="text" id="lastName" name="lastName" th:field="*{surname}">
+            </div>
+
+            <div class="form-group">
+                <label for="companyName">Имя компании:</label>
+                <input type="text" id="companyName" name="companyName" th:field="*{companyName}">
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Телефон:</label>
+                <input type="tel" id="phone" name="phone" th:field="*{number}">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Электронная почта:</label>
+                <input type="email" id="email" name="email" th:field="*{email}">
+            </div>
+
+
+            <button type="submit">Сохранить</button>
+        </form>
+        <form id="addAddress" action="/addAddress" method="post">
+            <div class="form-group">
+                <label for="deliveryAddress">Добавление новых адресов:</label>
+                <input id="deliveryAddress" name="address" autocomplete="off"/>
+                <ul id="suggestions" class="suggestions-list"></ul>
+            </div>
+            <button type="submit">Добавить новый адрес</button>
+        </form>
+        <form id="delAddress" action="/delAddress" method="post">
+            <div class="form-group">
+                <label for="companyAddress">Адреса компании:</label>
+                <select id="companyAddress" name="companyAddress">
+                    <option th:each="address : ${user.getAddresses()}"
+                            th:text="${address}">
+                    </option>
+                </select>
+            </div>
+            <button type="submit">Удалить адрес</button>
+        </form>
         </div>
 
         <!-- История заказов -->
@@ -35,16 +83,16 @@
             <h2>История заказов</h2>
             <ul id="order-list">
                 <!-- Заказы будут подгружены из БД через JavaScript -->
-<!--                <li>-->
-<!--                    <span>Заказ №12345 - 12/10/2024</span>-->
-<!--                    <span>Итого: 2000₽</span>-->
-<!--                    <button class="details-btn">Детали</button>-->
-<!--                </li>-->
-<!--                <li>-->
-<!--                    <span>Заказ №12344 - 08/10/2024</span>-->
-<!--                    <span>Итого: 1500₽</span>-->
-<!--                    <button class="details-btn">Детали</button>-->
-<!--                </li>-->
+               <li>
+                       <span>Заказ №12345 - 12/10/2024</span>
+                       <span>Итого: 2000₽</span>
+                       <button class="details-btn">Детали</button>
+                   </li>
+                   <li>
+                       <span>Заказ №12344 - 08/10/2024</span>
+                       <span>Итого: 1500₽</span>
+                       <button class="details-btn">Детали</button>
+                   </li>
             </ul>
         </div>
     </section>

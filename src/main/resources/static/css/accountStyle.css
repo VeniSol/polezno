@@ -1,4 +1,5 @@
-/* Основные стили */
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
 body, html {
     margin: 0;
     padding: 0;
@@ -20,7 +21,7 @@ h1, h2 {
 
 /* Стили для личной информации */
 .account-info {
-    width: 40%;
+    width: 30%;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
@@ -54,7 +55,7 @@ h1, h2 {
 
 /* Стили для истории заказов */
 .order-history {
-    width: 50%;
+    width: 60%;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
@@ -137,6 +138,58 @@ h1, h2 {
     color: #fff;
 }
 
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding: 5px;
+}
+.suggestions-list {
+    list-style-type: none;
+    padding: 0;
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: white;
+    font-size: 1vw;
+    margin: 0 auto;
+}
+
+.suggestions-list li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestions-list li:hover {
+    background-color: #f0f0f0;
+}
+button {
+    padding: 7px;
+    background-color: #6ea93e;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #557d2f;
+}
+button:active{
+    transform: scale(0.98);
+}
+form {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}   
+input{
+    height: 17px;
+}
+select{
+    height: 22px;
+}
 /* Адаптивность */
 @media (max-width: 850px) {
     .account-section {

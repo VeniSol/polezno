@@ -34,7 +34,7 @@
             Итого: <span id="total">0 Br</span>
         </div>
         <div class="button-container">
-            <button class="checkout-btn">Оформить заказ</button>
+            <button class="checkout-btn" onclick="sendOrder()">Оформить заказ</button>
             <button class="cancel-order-btn" onclick="cancelOrder()">Отменить заказ</button>
         </div>
     </div>
@@ -108,6 +108,14 @@
         cart = {};
         totalSum = 0;
         renderCart();
+    }
+    function sendOrder(){
+        let xhr = new XMLHttpRequest();
+        let data = JSON.stringify(cart);
+        xhr.open("POST", "http://localhost:8080/order", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(data);
+        cancelOrder();
     }
 </script>
 

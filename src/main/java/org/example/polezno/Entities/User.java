@@ -18,16 +18,25 @@ public class User {
     private Integer id;
     @Column(name = "login")
     private String login;
-    @Column(name = "user_name")
-    private String name;
     @Column(name = "password")
     private String password;
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Role role;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "surname")
+    private String surname;
+    @Column(name = "company_name")
+    private String companyName;
+    @Column(name = "number")
+    private String number;
+    @Column(name = "email")
+    private String email;
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     private List<Order> orders;
-
+    @OneToOne(mappedBy = "user",fetch = FetchType.EAGER)
+    private Cart cart;
     public User(String login, String name, String password, Role role) {
         this.login = login;
         this.name = name;
