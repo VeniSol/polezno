@@ -10,20 +10,20 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 </head>
 <body>
-    <!-- Шапка с логотипом и кнопками -->
-    <header class="header">
-        <div class="logo">
-            <span class="logo-text">Полезный бум</span>
-        </div>
-        <div class="header-buttons">
-            <button class="header-btn" onclick="window.location.href='/order'">Заказ продукции</button>
-            <button class="header-btn" onclick="window.location.href='/logout'">Выход</button>
-        </div>
-    </header>
+<!-- Шапка с логотипом и кнопками -->
+<header class="header">
+    <div class="logo">
+        <span class="logo-text">Полезный бум</span>
+    </div>
+    <div class="header-buttons">
+        <button class="header-btn" onclick="window.location.href='/order'">Заказ продукции</button>
+        <button class="header-btn" onclick="window.location.href='/logout'">Выход</button>
+    </div>
+</header>
 
-    <section class="account-section">
-        <div class="account-info">
-            <h1 id="panelNameProfile">Личный кабинет</h1>
+<section class="account-section">
+    <div class="account-info">
+        <h1 id="panelNameProfile">Личный кабинет</h1>
         <form id="userInfoForm" action="/saveUserInfo" method="post" th:object="${user}">
             <div class="form-group">
                 <label for="login">Логин:</label>
@@ -76,26 +76,84 @@
             </div>
             <button type="submit">Удалить адрес</button>
         </form>
-        </div>
+    </div>
 
-        <!-- История заказов -->
-        <div class="order-history">
-            <h2>История заказов</h2>
-            <ul id="order-list">
-                <!-- Заказы будут подгружены из БД через JavaScript -->
-               <li>
-                       <span>Заказ №12345 - 12/10/2024</span>
-                       <span>Итого: 2000₽</span>
-                       <button class="details-btn">Детали</button>
-                   </li>
-                   <li>
-                       <span>Заказ №12344 - 08/10/2024</span>
-                       <span>Итого: 1500₽</span>
-                       <button class="details-btn">Детали</button>
-                   </li>
-            </ul>
-        </div>
-    </section>
+    <div class="order-history">
+        <h2>История заказов</h2>
+        <ul id="order-list">
 
+        </ul>
+    </div>
+</section>
+<script th:inline="javascript">
+    let orders = [[${orders}]];
+    let html = "";
+    console.log(orders)
+    for (let i = 0; i < orders.length; i++) {
+        const orderDate = new Date(orders[i]["orderDateTime"]);
+        const formattedDate = `${orderDate.getHours().toString().padStart(2, '0')}:${orderDate.getMinutes().toString().padStart(2, '0')} ${orderDate.getDate().toString().padStart(2, '0')}.${(orderDate.getMonth() + 1).toString().padStart(2, '0')}.${orderDate.getFullYear()}`;
+        html +=
+`            <li>
+                <div class="info">
+                    <button class="tooltip">Детали</button>
+                    <div class="tooltip-content">
+                        <ul>
+                        <li><strong>Адрес заказа:</strong> ${orders[i]["address"]}</li>
+`
+                            let cartItems = orders[i]["cartItems"];
+                            for(let j=0;j<cartItems.length;j++){
+                                html+=`<li><span><strong>Наименование товара: </strong>${cartItems[j]["product"]["nameProd"]}</span>
+                                        <span><strong>Количество товара: </strong>${cartItems[j]["quantity"]}</span>
+                                            <span><strong>Итого товара: </strong>${cartItems[j]["total_price"]}Br</span>
+</li>
+
+
+`
+                            }
+                        html+=`</ul>
+                    </div>
+                </div>
+                <span>Заказ №168${orders[i]["id"]} - ${formattedDate}</span>
+                <span>Итого: ${orders[i]["totalSum"]} Br</span>
+
+
+            </li>`;
+    }
+    document.querySelector("#order-list").innerHTML = html;
+</script>
+
+
+<script>
+
+    const deliveryInput = document.getElementById('deliveryAddress');
+    const suggestionsList = document.getElementById('suggestions');
+
+    deliveryInput.addEventListener('input', function () {
+        const query = deliveryInput.value;
+        if (query.length > 2) {
+            fetch(`https://geocode-maps.yandex.ru/1.x/?apikey=4bbc9384-4943-4f8b-97f5-dc98c46b4515&geocode=${encodeURIComponent(query)}&format=json`)
+                .then(response => response.json())
+                .then(data => {
+                    suggestionsList.innerHTML = '';
+                    const suggestions = data.response.GeoObjectCollection.featureMember;
+
+                    suggestions.forEach(item => {
+                        const address = item.GeoObject.metaDataProperty.GeocoderMetaData.text;
+                        const li = document.createElement('li');
+                        li.textContent = address;
+                        li.onclick = () => {
+                            deliveryInput.value = address;
+                            suggestionsList.innerHTML = '';
+                        };
+                        suggestionsList.appendChild(li);
+                    });
+                })
+                .catch(error => console.error('Ошибка:', error));
+        } else {
+            suggestionsList.innerHTML = ''; // очищаем список, если ввод меньше 3 символов
+        }
+    });
+</script>
 </body>
+
 </html>

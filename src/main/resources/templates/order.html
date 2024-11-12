@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,10 +32,13 @@
         <div class="total-price">
             Итого: <span id="total">0 Br</span>
         </div>
+        <div class="address-container">
+        </div>
         <div class="button-container">
             <button class="checkout-btn" onclick="sendOrder()">Оформить заказ</button>
-            <button class="cancel-order-btn" onclick="cancelOrder()">Отменить заказ</button>
+            <button class="cancel-order-btn" onclick="cancelOrder()">Очистить корзину</button>
         </div>
+
     </div>
 </section>
 
@@ -54,6 +56,16 @@
     }
     document.querySelector(".product-list").innerHTML = html;
 
+    let addressHtml = "";
+    let user = [[${user}]]
+    addressHtml +=`
+                <label for="selectedAddress">Выберите адрес компании:</label>
+                <select id="selectedAddress" name="selectedAddress">`
+
+    for(let i = 0;i<user["addresses"].length;i++){
+        addressHtml +=`<option value="${user["addresses"][i]}">${user["addresses"][i]}</option>`
+    }
+    document.querySelector(".address-container").innerHTML = addressHtml;
     let cart = {};
     let totalSum = 0;
 
@@ -111,7 +123,8 @@
     }
     function sendOrder(){
         let xhr = new XMLHttpRequest();
-        let data = JSON.stringify(cart);
+        let selectedAddress = document.getElementById("selectedAddress").value;
+        let data = JSON.stringify({"cart":cart,"address":selectedAddress,"total_sum":totalSum});
         xhr.open("POST", "http://localhost:8080/order", true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(data);

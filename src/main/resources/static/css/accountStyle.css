@@ -144,7 +144,9 @@ h1, h2 {
     flex-wrap: wrap;
     flex-direction: column;
     padding: 5px;
+    width: 96%;
 }
+
 .suggestions-list {
     list-style-type: none;
     padding: 0;
@@ -163,8 +165,9 @@ h1, h2 {
 .suggestions-list li:hover {
     background-color: #f0f0f0;
 }
+
 button {
-    padding: 7px;
+    padding: 10px;
     background-color: #6ea93e;
     color: #fff;
     border: none;
@@ -176,20 +179,52 @@ button {
 button:hover {
     background-color: #557d2f;
 }
-button:active{
+
+button:active {
     transform: scale(0.98);
 }
+
 form {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-}   
-input{
+}
+
+input {
     height: 17px;
 }
-select{
-    height: 22px;
+
+select {
+    min-height: 22px;
+    max-width: 100%;
 }
+
+.info {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.tooltip-content {
+    min-width: 50vw;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    z-index: 1;
+    display: none;
+}
+
+.info:hover .tooltip-content {
+    display: block;
+}
+
+ul {
+    padding: 0;
+}
+
+
 /* Адаптивность */
 @media (max-width: 850px) {
     .account-section {

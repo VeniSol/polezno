@@ -39,4 +39,3 @@ pwShowHide.forEach((icon) => {
         }
     });
 });
-

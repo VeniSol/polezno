@@ -25,11 +25,14 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request -> request
+                .authorizeHttpRequests(requgest -> request
 
                         .requestMatchers("/admin/**").hasAuthority(Perms.ADMIN.getPermission())
                         .requestMatchers("/order").hasAuthority(Perms.USER.getPermission())
                         .requestMatchers("/account").hasAuthority(Perms.USER.getPermission())
+                        .requestMatchers("/saveUserInfo").hasAuthority(Perms.USER.getPermission())
+                        .requestMatchers("/addAddress").hasAuthority(Perms.USER.getPermission())
+                        .requestMatchers("/delAddress").hasAuthority(Perms.USER.getPermission())
 //                        .requestMatchers("/orderDelete/**").hasAuthority(Perms.USER.getPermission())
 
                         .anyRequest().permitAll())

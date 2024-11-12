@@ -35,8 +35,12 @@ public class User {
     private String email;
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     private List<Order> orders;
-    @OneToOne(mappedBy = "user",fetch = FetchType.EAGER)
-    private Cart cart;
+    @ElementCollection
+    @CollectionTable(name = "addresses", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "address")
+    private List<String> addresses;
+
+
     public User(String login, String name, String password, Role role) {
         this.login = login;
         this.name = name;
@@ -46,4 +50,11 @@ public class User {
 
     public User() {}
 
+    public void addAddress(String address){
+        addresses.add(address);
+    }
+
+    public void delAddress(String address) {
+        addresses.remove(address);
+    }
 }
